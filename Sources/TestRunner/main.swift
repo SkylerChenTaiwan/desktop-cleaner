@@ -11,6 +11,7 @@ FileScannerTests.runAll()
 FileTrashTests.runAll()
 DesktopCleanerTests.runAll()
 IntegrationTests.runAll()
+NotifierTests.runAll()
 
 // 輸出結果摘要
 TestFramework.printSummary()
