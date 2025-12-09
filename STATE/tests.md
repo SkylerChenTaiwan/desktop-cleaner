@@ -1,75 +1,100 @@
 # 測試清單
 
-> 最後更新：YYYY-MM-DD
+> 最後更新：2025-12-10
 
 ## 測試策略
 
 | 測試類型 | 目的 | 工具 |
 |---------|------|------|
-| 單元測試 | 測試獨立模組的邏輯 | Jest |
-| 整合測試 | 測試模組間的協作 | Jest |
-| E2E 測試 | 測試完整使用者流程 | Playwright |
+| 單元測試 | 測試獨立模組的邏輯 | TestRunner (自製框架) |
+| 整合測試 | 測試模組間的協作 | TestRunner (自製框架) |
 
 ## 執行測試
 
 ```bash
-# 執行所有單元測試
-npm test
+# 編譯並執行所有測試
+swift run TestRunner
 
-# 執行特定測試檔案
-npm test -- --testPathPattern="XxxService"
-
-# 執行 E2E 測試
-npx playwright test
-
-# 執行特定 E2E 測試
-npx playwright test xxx.spec.ts
+# 只編譯測試執行器
+swift build --product TestRunner
 ```
-
----
-
-## E2E 測試清單
-
-<!-- 列出所有 E2E 測試和其覆蓋的場景 -->
-
-### [功能類別]
-
-| 測試檔案 | 覆蓋場景 | 狀態 |
-|---------|---------|------|
-| <!-- xxx.spec.ts --> | <!-- 場景描述 --> | <!-- ✅ / 🚧 --> |
 
 ---
 
 ## 單元測試清單
 
-<!-- 列出重要的單元測試 -->
+### FileScanner 測試
 
-### 後端服務
+| 測試案例 | 描述 | 狀態 |
+|---------|------|------|
+| scanEmptyDirectory | 掃描空目錄應該返回空陣列 | ✅ |
+| scanDirectoryWithFiles | 掃描含檔案的目錄應該返回正確數量的 FileInfo | ✅ |
+| scanDirectoryReturnsCorrectFileInfo | 掃描檔案應該返回正確的 FileInfo 資訊 | ✅ |
+| scanDirectoryWithSubdirectory | 掃描子目錄應該正確識別為目錄 | ✅ |
+| scanSkipsHiddenFiles | 掃描應該跳過隱藏檔案 | ✅ |
+| scanNonExistentDirectory | 掃描不存在的目錄應該返回空陣列 | ✅ |
+| scanMixedContent | 掃描混合內容目錄應該只返回可見項目 | ✅ |
 
-| 測試檔案 | 測試模組 | 覆蓋率 |
-|---------|---------|--------|
-| <!-- XxxService.test.ts --> | <!-- XxxService --> | <!-- XX% --> |
+### FileTrash 測試
 
-### 前端元件
+| 測試案例 | 描述 | 狀態 |
+|---------|------|------|
+| trashFile | 成功將檔案移到垃圾桶 | ✅ |
+| trashNonExistentFile | 處理不存在的檔案應該返回 false | ✅ |
+| trashDirectory | 成功將目錄移到垃圾桶 | ✅ |
 
-| 測試檔案 | 測試元件 | 覆蓋率 |
-|---------|---------|--------|
-| <!-- XxxComponent.test.tsx --> | <!-- XxxComponent --> | <!-- XX% --> |
+### DesktopCleaner 測試
+
+| 測試案例 | 描述 | 狀態 |
+|---------|------|------|
+| cleanOldFiles | 清理超過三天的檔案 | ✅ |
+| keepNewFiles | 保留三天內的檔案 | ✅ |
+| handleEmptyDirectory | 處理空資料夾應該返回空結果 | ✅ |
+| cleanMixedFiles | 混合新舊檔案只清理舊的 | ✅ |
+| isOlderThanThreeDaysCalculation | FileInfo.isOlderThanThreeDays 計算正確 | ✅ |
 
 ---
 
-## 測試覆蓋率目標
+## 整合測試清單
 
-| 模組 | 目標覆蓋率 | 目前覆蓋率 |
-|------|-----------|-----------|
-| 核心業務邏輯 | 80% | <!-- XX% --> |
-| API Endpoints | 90% | <!-- XX% --> |
-| 前端元件 | 70% | <!-- XX% --> |
+| 測試案例 | 描述 | 狀態 |
+|---------|------|------|
+| completeCleaningFlow | 完整清理流程：建立測試目錄，放入新舊檔案，執行清理，驗證結果 | ✅ |
+| borderCondition | 邊界條件：71 小時的檔案不應該被清理，73 小時的應該被清理 | ✅ |
+| consecutiveCleaning | 連續清理：第二次清理不應該有任何動作 | ✅ |
+
+---
+
+## 測試統計
+
+| 類別 | 測試數量 | 通過數量 |
+|------|---------|---------|
+| FileScanner | 7 | 7 |
+| FileTrash | 3 | 3 |
+| DesktopCleaner | 5 | 5 |
+| 整合測試 | 3 | 3 |
+| **總計** | **18** | **18** |
+
+> 註：總斷言數為 55 個
+
+---
+
+## 測試檔案結構
+
+```
+Sources/TestRunner/
+├── main.swift              # 測試執行入口
+├── TestFramework.swift     # 簡易測試框架
+├── FileScannerTests.swift  # FileScanner 單元測試
+├── FileTrashTests.swift    # FileTrash 單元測試
+├── DesktopCleanerTests.swift # DesktopCleaner 單元測試
+└── IntegrationTests.swift  # 整合測試
+```
 
 ---
 
 ## 待新增測試
 
-<!-- 記錄需要新增的測試 -->
-
-- [ ] <!-- 測試描述 -->
+- [ ] 測試 URL 擴充方法 (.downloads, .desktop)
+- [ ] 測試 CleanResult 結構
+- [ ] 新增效能測試（處理大量檔案的情況）
