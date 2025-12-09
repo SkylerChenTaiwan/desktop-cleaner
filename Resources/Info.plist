@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Bundle 識別 -->
+    <key>CFBundleIdentifier</key>
+    <string>com.user.desktop-cleaner</string>
+
+    <key>CFBundleName</key>
+    <string>DesktopCleaner</string>
+
+    <key>CFBundleDisplayName</key>
+    <string>Desktop Cleaner</string>
+
+    <!-- 執行檔名稱 -->
+    <key>CFBundleExecutable</key>
+    <string>DesktopCleaner</string>
+
+    <!-- 版本資訊 -->
+    <key>CFBundleVersion</key>
+    <string>1.0.0</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>1.0.0</string>
+
+    <!-- Bundle 類型 -->
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <!-- 最低系統版本 -->
+    <key>LSMinimumSystemVersion</key>
+    <string>13.0</string>
+
+    <!-- 隱私權描述（觸發權限請求對話框） -->
+    <key>NSDesktopFolderUsageDescription</key>
+    <string>Desktop Cleaner 需要存取桌面資料夾以清理超過三天的檔案。</string>
+
+    <key>NSDownloadsFolderUsageDescription</key>
+    <string>Desktop Cleaner 需要存取下載資料夾以清理超過三天的檔案。</string>
+
+    <!-- 背景執行（無 Dock 圖示、無選單列） -->
+    <key>LSUIElement</key>
+    <true/>
+</dict>
+</plist>
