@@ -11,9 +11,10 @@ FileScannerTests.runAll()
 FileTrashTests.runAll()
 SymlinkTests.runAll()
 DesktopCleanerTests.runAll()
-DryRunTests.runAll()
 IntegrationTests.runAll()
 NotifierTests.runAll()
+DryRunTests.runAll()
+LoggerTests.runAll()
 
 // 輸出結果摘要
 TestFramework.printSummary()
