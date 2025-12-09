@@ -1,6 +1,10 @@
 import Foundation
 import DesktopCleanerLib
 
+// 解析命令列參數
+let arguments = CommandLine.arguments
+let isDryRun = arguments.contains("--dry-run")
+
 // 程式進入點
 let cleaner = DesktopCleaner()
 let result = cleaner.clean()
@@ -21,4 +25,10 @@ if !result.errors.isEmpty {
     for error in result.errors {
         print("  - \(error.localizedDescription)")
     }
+}
+
+// Dry-run 模式不發送通知
+if !isDryRun {
+    let notifier = Notifier()
+    notifier.notify(result: result)
 }
