@@ -1,0 +1,59 @@
+{
+  "projectName": "Desktop Cleaner",
+  "description": "macOS 自動清理工具，定時將下載和桌面上超過三天的檔案移到垃圾桶",
+  "version": "0.1.0",
+  "generated": "2024-12-10",
+  "architecture": {
+    "pattern": "CLI Application",
+    "layers": [
+      "Main - 程式進入點",
+      "Cleaner - 清理邏輯",
+      "FileScanner - 檔案掃描",
+      "LaunchAgent - 排程設定"
+    ],
+    "keyPrinciples": [
+      "單一職責",
+      "簡單直接"
+    ]
+  },
+  "snapshots": {
+    "swift": {
+      "main": {
+        "file": ".snapshots/swift/main.json",
+        "description": "主程式",
+        "count": 0
+      },
+      "cleaner": {
+        "file": ".snapshots/swift/cleaner.json",
+        "description": "清理邏輯",
+        "count": 0
+      }
+    }
+  },
+  "stateFiles": {
+    "overview": "STATE/overview.md - 系統總覽",
+    "spec": "STATE/spec.md - 功能規格",
+    "decisions": "STATE/decisions.md - 決策記錄"
+  },
+  "quickNav": {
+    "我想了解專案架構": {
+      "readFirst": [
+        "STATE/overview.md - 系統總覽"
+      ]
+    },
+    "我想修改清理邏輯": {
+      "readFirst": [
+        "STATE/spec.md - 功能規格",
+        ".snapshots/swift/cleaner.json - 清理邏輯"
+      ]
+    }
+  },
+  "namingConventions": {
+    "Cleaner": "清理相關邏輯",
+    "Scanner": "檔案掃描邏輯"
+  },
+  "usage": {
+    "forAI": "開始任務前，先讀 STATE/overview.md 了解系統狀態",
+    "forDevelopers": "這是專案地圖，修改程式碼後更新此檔案"
+  }
+}
