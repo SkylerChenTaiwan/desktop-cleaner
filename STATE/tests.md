@@ -60,6 +60,32 @@ swift build --product TestRunner
 | cleanMixedFiles | 混合新舊檔案只清理舊的 | ✅ |
 | isOlderThanThreeDaysCalculation | FileInfo.isOlderThanThreeDays 計算正確 | ✅ |
 
+### Notifier 測試
+
+| 測試案例 | 描述 | 狀態 |
+|---------|------|------|
+| notifyMessageWithCleanup | 通知訊息格式正確（有清理） | ✅ |
+| notifyMessageWithoutCleanup | 通知訊息格式正確（無清理） | ✅ |
+| notifyMessageWithErrors | 通知訊息格式正確（有錯誤） | ✅ |
+
+### Dry-Run 測試
+
+| 測試案例 | 描述 | 狀態 |
+|---------|------|------|
+| previewReturnsCorrectFiles | preview() 返回正確的檔案列表 | ✅ |
+| previewDoesNotDelete | preview() 不會刪除任何檔案 | ✅ |
+| previewResultClassifiesFiles | PreviewResult 正確分類檔案 | ✅ |
+| fileAgeCalculation | 檔齡計算正確 | ✅ |
+
+### Logger 測試
+
+| 測試案例 | 描述 | 狀態 |
+|---------|------|------|
+| logDirectoryCreation | 日誌目錄自動建立 | ✅ |
+| logFileNaming | 日誌檔案正確命名（當天日期） | ✅ |
+| logEntryFormat | JSON 格式正確可解析 | ✅ |
+| logCleanup | 超過 30 天的日誌被清理 | ✅ |
+
 ---
 
 ## 整合測試清單
@@ -80,10 +106,13 @@ swift build --product TestRunner
 | FileTrash | 3 | 3 |
 | Symlink | 2 | 2 |
 | DesktopCleaner | 5 | 5 |
+| Notifier | 3 | 3 |
+| Dry-Run | 4 | 4 |
+| Logger | 4 | 4 |
 | 整合測試 | 3 | 3 |
-| **總計** | **20** | **20** |
+| **總計** | **31** | **31** |
 
-> 註：總斷言數為 63 個
+> 註：總斷言數為 84 個
 
 ---
 
@@ -97,6 +126,9 @@ Sources/TestRunner/
 ├── FileTrashTests.swift    # FileTrash 單元測試
 ├── SymlinkTests.swift      # Symlink 安全測試
 ├── DesktopCleanerTests.swift # DesktopCleaner 單元測試
+├── NotifierTests.swift     # Notifier 單元測試
+├── DryRunTests.swift       # Dry-Run 單元測試
+├── LoggerTests.swift       # Logger 單元測試
 └── IntegrationTests.swift  # 整合測試
 ```
 
