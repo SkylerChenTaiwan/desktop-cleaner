@@ -5,9 +5,59 @@ import DesktopCleanerLib
 let arguments = CommandLine.arguments
 let isDryRun = arguments.contains("--dry-run")
 
+// 初始化日誌記錄器
+let logger = Logger()
+let startTime = Date()
+
+// 記錄開始
+logger.log(.start(version: "1.0.0"))
+
 // 程式進入點
 let cleaner = DesktopCleaner()
+
+// 掃描並記錄各目錄狀態
+let scanner = FileScanner()
+
+// 掃描下載資料夾
+let downloadFiles = scanner.scan(at: .downloads)
+let oldDownloadFiles = downloadFiles.filter { $0.isOlderThanThreeDays }
+logger.log(.scan(directory: "Downloads", found: downloadFiles.count, old: oldDownloadFiles.count))
+
+// 掃描桌面資料夾
+let desktopFiles = scanner.scan(at: .desktop)
+let oldDesktopFiles = desktopFiles.filter { $0.isOlderThanThreeDays }
+logger.log(.scan(directory: "Desktop", found: desktopFiles.count, old: oldDesktopFiles.count))
+
+// 執行清理
 let result = cleaner.clean()
+
+// 記錄每個被刪除的檔案
+for file in result.trashedFiles {
+    // 判斷檔案來源目錄
+    let directory = file.path.contains("/Downloads/") ? "Downloads" : "Desktop"
+
+    // 計算檔案年齡（小時）
+    let ageHours: Int
+    if let fileInfo = (downloadFiles + desktopFiles).first(where: { $0.url == file }) {
+        ageHours = Int(Date().timeIntervalSince(fileInfo.modificationDate) / 3600)
+    } else {
+        ageHours = 72  // 預設值
+    }
+
+    logger.log(.trash(file: file.lastPathComponent, directory: directory, ageHours: ageHours))
+}
+
+// 記錄錯誤
+for error in result.errors {
+    logger.log(.error(file: "unknown", errorMessage: error.localizedDescription))
+}
+
+// 計算執行時間並記錄完成
+let durationMs = Int(Date().timeIntervalSince(startTime) * 1000)
+logger.log(.complete(trashed: result.trashedFiles.count, errors: result.errors.count, durationMs: durationMs))
+
+// 清理超過 30 天的日誌
+logger.cleanup(retentionDays: 30)
 
 // 輸出結果
 print("清理完成")
