@@ -26,6 +26,12 @@ extension FileInfo {
     public func isOlderThan(_ date: Date) -> Bool {
         return modificationDate < date
     }
+
+    /// 計算檔案距今多少天
+    public var daysOld: Int {
+        let components = Calendar.current.dateComponents([.day], from: modificationDate, to: Date())
+        return components.day ?? 0
+    }
 }
 
 /// 清理結果結構
@@ -36,5 +42,26 @@ public struct CleanResult {
     public init(trashedFiles: [URL], errors: [Error]) {
         self.trashedFiles = trashedFiles
         self.errors = errors
+    }
+}
+
+/// 預覽結果結構 - 用於 Dry-Run 模式
+public struct PreviewResult {
+    public let downloads: [FileInfo]  // Downloads 目錄中將被清理的檔案
+    public let desktop: [FileInfo]    // Desktop 目錄中將被清理的檔案
+
+    public init(downloads: [FileInfo], desktop: [FileInfo]) {
+        self.downloads = downloads
+        self.desktop = desktop
+    }
+
+    /// 所有將被清理的檔案
+    public var allFiles: [FileInfo] {
+        return downloads + desktop
+    }
+
+    /// 總共將被清理的檔案數量
+    public var totalCount: Int {
+        return downloads.count + desktop.count
     }
 }

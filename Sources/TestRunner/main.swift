@@ -11,6 +11,7 @@ FileScannerTests.runAll()
 FileTrashTests.runAll()
 SymlinkTests.runAll()
 DesktopCleanerTests.runAll()
+DryRunTests.runAll()
 IntegrationTests.runAll()
 NotifierTests.runAll()
 

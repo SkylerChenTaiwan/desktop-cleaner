@@ -66,4 +66,20 @@ public class DesktopCleaner {
 
         return (trashedFiles, errors)
     }
+
+    /// 預覽作業（掃描下載和桌面資料夾，但不刪除）
+    /// - Returns: 預覽結果
+    public func preview() -> PreviewResult {
+        let downloadFiles = previewDirectory(at: .downloads)
+        let desktopFiles = previewDirectory(at: .desktop)
+        return PreviewResult(downloads: downloadFiles, desktop: desktopFiles)
+    }
+
+    /// 預覽指定資料夾中超過三天的檔案（不刪除）
+    /// - Parameter directory: 要預覽的資料夾路徑
+    /// - Returns: 超過三天的檔案列表
+    public func previewDirectory(at directory: URL) -> [FileInfo] {
+        let files = scanner.scan(at: directory)
+        return files.filter { $0.isOlderThanThreeDays }
+    }
 }
