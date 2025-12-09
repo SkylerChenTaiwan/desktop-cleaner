@@ -10,6 +10,7 @@ print("=" + String(repeating: "=", count: 49))
 FileScannerTests.runAll()
 FileTrashTests.runAll()
 DesktopCleanerTests.runAll()
+DryRunTests.runAll()
 IntegrationTests.runAll()
 
 // 輸出結果摘要
