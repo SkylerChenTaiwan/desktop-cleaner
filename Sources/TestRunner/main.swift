@@ -9,6 +9,7 @@ print("=" + String(repeating: "=", count: 49))
 // 執行所有測試
 FileScannerTests.runAll()
 FileTrashTests.runAll()
+SymlinkTests.runAll()
 DesktopCleanerTests.runAll()
 IntegrationTests.runAll()
 
