@@ -43,6 +43,13 @@ swift build --product TestRunner
 | trashNonExistentFile | 處理不存在的檔案應該返回 false | ✅ |
 | trashDirectory | 成功將目錄移到垃圾桶 | ✅ |
 
+### Symlink 測試
+
+| 測試案例 | 描述 | 狀態 |
+|---------|------|------|
+| symlinkMovesLinkNotTarget | Symlink 應該移動連結本身而非目標 | ✅ |
+| symlinkTargetUnaffected | Symlink 指向的目標檔案內容不受影響 | ✅ |
+
 ### DesktopCleaner 測試
 
 | 測試案例 | 描述 | 狀態 |
@@ -71,11 +78,12 @@ swift build --product TestRunner
 |------|---------|---------|
 | FileScanner | 7 | 7 |
 | FileTrash | 3 | 3 |
+| Symlink | 2 | 2 |
 | DesktopCleaner | 5 | 5 |
 | 整合測試 | 3 | 3 |
-| **總計** | **18** | **18** |
+| **總計** | **20** | **20** |
 
-> 註：總斷言數為 55 個
+> 註：總斷言數為 63 個
 
 ---
 
@@ -87,6 +95,7 @@ Sources/TestRunner/
 ├── TestFramework.swift     # 簡易測試框架
 ├── FileScannerTests.swift  # FileScanner 單元測試
 ├── FileTrashTests.swift    # FileTrash 單元測試
+├── SymlinkTests.swift      # Symlink 安全測試
 ├── DesktopCleanerTests.swift # DesktopCleaner 單元測試
 └── IntegrationTests.swift  # 整合測試
 ```
