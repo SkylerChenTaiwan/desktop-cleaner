@@ -13,6 +13,7 @@ SymlinkTests.runAll()
 DesktopCleanerTests.runAll()
 IntegrationTests.runAll()
 NotifierTests.runAll()
+DryRunTests.runAll()
 LoggerTests.runAll()
 
 // 輸出結果摘要
