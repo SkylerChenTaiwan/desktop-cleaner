@@ -1,7 +1,7 @@
 import Foundation
 
 /// URL 擴充 - 提供常用資料夾路徑
-extension URL {
+public extension URL {
     static var downloads: URL {
         FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask)[0]
     }
@@ -12,13 +12,18 @@ extension URL {
 }
 
 /// 清理邏輯協調器 - 整合掃描和刪除流程
-class DesktopCleaner {
-    private let scanner = FileScanner()
-    private let trash = FileTrash()
+public class DesktopCleaner {
+    private let scanner: FileScanner
+    private let trash: FileTrash
+
+    public init(scanner: FileScanner = FileScanner(), trash: FileTrash = FileTrash()) {
+        self.scanner = scanner
+        self.trash = trash
+    }
 
     /// 執行清理作業（掃描下載和桌面資料夾）
     /// - Returns: 清理結果
-    func clean() -> CleanResult {
+    public func clean() -> CleanResult {
         var allTrashedFiles: [URL] = []
         var allErrors: [Error] = []
 
@@ -38,7 +43,7 @@ class DesktopCleaner {
     /// 清理指定資料夾中超過三天的檔案
     /// - Parameter directory: 要清理的資料夾路徑
     /// - Returns: 已移到垃圾桶的檔案和錯誤
-    func cleanDirectory(at directory: URL) -> (trashed: [URL], errors: [Error]) {
+    public func cleanDirectory(at directory: URL) -> (trashed: [URL], errors: [Error]) {
         var trashedFiles: [URL] = []
         var errors: [Error] = []
 

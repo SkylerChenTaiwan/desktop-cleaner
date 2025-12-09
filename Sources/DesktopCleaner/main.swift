@@ -1,4 +1,5 @@
 import Foundation
+import DesktopCleanerLib
 
 // 程式進入點
 let cleaner = DesktopCleaner()
